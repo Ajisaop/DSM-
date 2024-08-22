@@ -1,0 +1,10 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+data={'Java':22.2,'Python': 8.8,'PHP':8.8,'JavaScript':8,'c#':7.7,'c++':6.7}
+courses=list(data.keys())
+values=list(data.values())
+fig=plt.figure(figsize=(10,5))
+
+plt.pie(values,labels=courses)
+plt.show() 
