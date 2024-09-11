@@ -1,0 +1,22 @@
+import numpy as np
+print("matrix operation")
+a=np.array([[2,4],[6,3]])
+b=np.array([[1,2],[3,5]])
+c=a+b
+d=a-b
+e=a*b
+f=np.dot(a,b)
+a_transpose=a.T
+print("\n matrix A:\n",a);
+print("\n matrix A:\n",b);
+print("\n addition:\n",c);
+print("\n substraction\n",d);
+print("\n multiplication element wise:\n",e);
+print("\n multiplication (row*column wise)\n",f);
+print("\n tranpose:\n",a_transpose);
+
+
+
+
+
+
