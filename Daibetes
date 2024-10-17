@@ -1,0 +1,92 @@
+import pandas as pd
+from sklearn.datasets import load_diabetes
+df=pd.read_csv('diabetes.csv')
+x=df.iloc[:,0:8]
+y=df.iloc[:,8]
+print(x)
+print("target values\n",y)
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+
+from sklearn.neighbors import KNeighborsClassifier
+k=3
+knn=KNeighborsClassifier(n_neighbors=k)
+knn.fit(x_train,y_train)
+j=knn.predict(x_test)
+
+from sklearn.metrics import accuracy_score
+a=accuracy_score(y_test,j)
+print(a)
+
+import numpy as np
+
+new=[]
+print("enter 8 feature values for the new data point:")
+for i in range(8):
+    value=float(input(f"feature{i+1}: "))
+    new.append(value)
+new=np.array(new).reshape(1,-1)
+print(new)
+yn=knn.predict(new)
+print(f'prediction for new data point:',yn)
+if yn==0:
+    print("no diabetic")
+else:
+    print("diabetic")
+
+output:-
+
+  Pregnancies  Glucose  BloodPressure  SkinThickness  Insulin   BMI  \
+0              6      148             72             35        0  33.6   
+1              1       85             66             29        0  26.6   
+2              8      183             64              0        0  23.3   
+3              1       89             66             23       94  28.1   
+4              0      137             40             35      168  43.1   
+..           ...      ...            ...            ...      ...   ...   
+763           10      101             76             48      180  32.9   
+764            2      122             70             27        0  36.8   
+765            5      121             72             23      112  26.2   
+766            1      126             60              0        0  30.1   
+767            1       93             70             31        0  30.4   
+
+     DiabetesPedigreeFunction  Age  
+0                       0.627   50  
+1                       0.351   31  
+2                       0.672   32  
+3                       0.167   21  
+4                       2.288   33  
+..                        ...  ...  
+763                     0.171   63  
+764                     0.340   27  
+765                     0.245   30  
+766                     0.349   47  
+767                     0.315   23  
+
+[768 rows x 8 columns]
+target values
+ 0      1
+1      0
+2      1
+3      0
+4      1
+      ..
+763    0
+764    0
+765    0
+766    1
+767    0
+Name: Outcome, Length: 768, dtype: int64
+0.6493506493506493
+enter 8 feature values for the new data point:
+feature1: 23.5
+feature2: 23.5
+feature3: 85.9
+feature4: 98.6
+feature5: 78.5
+feature6: 95.6
+feature7: 32.9
+feature8: 78.5
+[[23.5 23.5 85.9 98.6 78.5 95.6 32.9 78.5]]
+prediction for new data point: [0]
+no diabetic
