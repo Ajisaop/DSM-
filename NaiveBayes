@@ -1,0 +1,90 @@
+import numpy as np
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+iris=datasets.load_iris()
+X=iris.data
+y=iris.target
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
+nb_classifier=GaussianNB()
+nb_classifier.fit(X_train,y_train)
+y_pred=nb_classifier.predict(X_test)
+accuracy=accuracy_score(y_test,y_pred)
+print(f"Accuracy:{accuracy*100:2f}%")
+
+
+out=Accuracy:100.000000%
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import sklearn
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix,accuracy_score,classification_report
+from sklearn.naive_bayes import GaussianNB
+from sklearn.datasets import load_iris
+x,y=load_iris(return_X_y=True)
+pd.DataFrame(x)
+
+
+
+ans: 	0 	1 	2 	3
+0 	5.1 	3.5 	1.4 	0.2
+1 	4.9 	3.0 	1.4 	0.2
+2 	4.7 	3.2 	1.3 	0.2
+3 	4.6 	3.1 	1.5 	0.2
+4 	5.0 	3.6 	1.4 	0.2
+... 	... 	... 	... 	...
+145 	6.7 	3.0 	5.2 	2.3
+146 	6.3 	2.5 	5.0 	1.9
+147 	6.5 	3.0 	5.2 	2.0
+148 	6.2 	3.4 	5.4 	2.3
+149 	5.9 	3.0 	5.1 	1.8
+
+150 rows × 4 columns
+
+
+
+
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.40)
+classifier=GaussianNB()
+classifier.fit(x_train,y_train)
+y_pred=classifier.predict(x_test)
+result=confusion_matrix(y_test,y_pred)
+print("confussion_matrix")
+print(result)
+
+
+ans:confussion_matrix
+[[19  0  0]
+ [ 0 19  2]
+ [ 0  2 18]]
+
+
+result2=classification_report(y_test,y_pred)
+print("classification_report")
+print(result2)
+
+ans:classification_report
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        19
+           1       0.90      0.90      0.90        21
+           2       0.90      0.90      0.90        20
+
+    accuracy                           0.93        60
+   macro avg       0.93      0.93      0.93        60
+weighted avg       0.93      0.93      0.93        60
+
+
+result3=accuracy_score(y_test,y_pred)
+print("accuracy")
+print(result3*100)
+
+
+ans:accuracy
+93.33333333333333
