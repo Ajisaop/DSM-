@@ -1,0 +1,51 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+
+# Load dataset and use the first two features
+data = load_iris()
+X = data.data[:, :2]
+y = data.target
+
+# Split the data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train SVM with polynomial kernel
+svm_model = SVC(kernel='poly', degree=3)  # degree=3 is default
+svm_model.fit(X_train, y_train)
+
+# Make predictions and compute accuracy
+y_pred = svm_model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy of SVM with polynomial kernel: {accuracy:.2f}')
+
+# Create a mesh grid for plotting the decision boundary
+x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.01), np.arange(y_min, y_max, 0.01))
+
+# Predict on the mesh grid
+Z = svm_model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+
+# Plot the decision boundary and the training/testing points
+plt.figure(figsize=(8, 6))
+plt.contourf(xx, yy, Z, alpha=0.8, cmap="coolwarm")
+
+# Scatter plot for train and test data points
+plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap="coolwarm", edgecolors='k', marker='o', label='Train')
+plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap="coolwarm", marker='x', label='Test')
+
+# Add labels and title
+plt.title('SVM Decision Boundary with Polynomial Kernel')
+plt.xlabel(data.feature_names[0])
+plt.ylabel(data.feature_names[1])
+plt.legend()
+plt.show()
+
+
+
+ANS
+:Accuracy of SVM with polynomial kernel: 0.83
